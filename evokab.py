@@ -1,10 +1,10 @@
-# imports
+# IMPORTS
 from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
-# functions:
+# FUNCTIONS:
 def simpleGet(url):
     try:
         with closing(get(url, stream=True)) as resp:
@@ -25,6 +25,15 @@ def isGoodResponse(resp): # checks if response is an HTML doc
 def logError(e):
     print(e)
 
-# main script
+# MAIN SCRIPT:
+
 dictURL = 'https://dictionary.com/browse/' # default online dictionary
 
+defaultFile = 'vocab.ex'
+vocab = open(defaultFile, 'r')
+
+vocabList = vocab.read().split('\n')
+
+print(vocabList)
+
+vocab.close()

@@ -1,4 +1,0 @@
-vigilant
-manifest
-destroy
-tennis

@@ -37,16 +37,28 @@ def log_error(e):
     '''
     print(e)
 
+def parse_response(url_resp):
+    '''
+    Returns parsed reponse of the page.
+    '''
+    html = BeautifulSoup(url_resp, 'html.parser')
+    definitions = []
+    for li in html.select('li'):
+        li_val = li.get('value')
+        if li_val in numbers:
+            # print(li_val)
+            li_text_spans = li.find_all('span',recursive=False)
+            st = [li_text_span.text.strip() for li_text_span in li_text_spans]
+            # print((" ".join(st)))
+            definitions.append(" ".join(st))
+    return definitions
+
 # main script
 request = input('Enter URL: ')
 response = simple_get(request)
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+numbers = [str(n) for n in numbers]
+# print(numbers)
 
 if response is not None:
-    html = BeautifulSoup(response, 'html.parser')
-    names = set()
-    for li in html.select('li'):
-        if li.value in numbers:
-            if len(name) > 0:
-                names.add(name.strip())
-    print(list(names))
+    print(parse_response(response))
